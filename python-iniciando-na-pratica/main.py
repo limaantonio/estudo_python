@@ -1,8 +1,13 @@
 from utils import clear, header
 from operations import auth_account, get_options_typed, do_operation
+from file import load_bank_data
+from bank_account_variables import money_slips, accounts_list
 
 
 def main():
+    load_bank_data()
+    print(money_slips)
+    print(accounts_list)
     header()
     account_auth = auth_account()
 
@@ -15,7 +20,8 @@ def main():
     else:
         print('Conta inválida')
 
-while True:
-    main()
+if __name__ == '__main__':
+    while True:
+        main()
 
-    input('Pressione <ENTER> para continuar...')  # pause do programa
+        input('Pressione <ENTER> para continuar...')  # pause do programa

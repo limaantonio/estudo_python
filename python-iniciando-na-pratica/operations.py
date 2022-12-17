@@ -1,6 +1,6 @@
 import getpass
 from bank_account_variables import accounts_list, money_slips
-
+from file import  open_file_bank
 
 def do_operation(option_typed, account_auth):
     if option_typed == '1':
@@ -46,6 +46,7 @@ def withdraw():
     else:
         for money_bill in money_slips_user:
             money_slips[money_bill] -= money_slips_user[money_bill]
+        save_money_slips()
         print('Pegue as notas:')
         print(money_slips_user)
 
@@ -66,3 +67,16 @@ def auth_account():
         return account_typed
     else:
         return False
+
+
+def save_money_slips():
+    file = open_file_bank('r')
+    lines = file.readlines()
+    file.close()
+    file = open_file_bank('w')
+    lines[0] = ""
+    for money_bill, value in money_slips.items():
+        lines[0] += money_bill + '=' + str(value) + ';'
+    lines[0] += '\n'
+    file.writelines(lines)
+    file.close()
